@@ -1,0 +1,15 @@
+body{
+  font-family: 'Montserrat', sans-serif;
+  color: rgb(35, 35, 35);
+
+  background: #FF416C;
+  background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
+  background: linear-gradient(to right, #FF4B2B, #FF416C);
+
+  box-sizing: border-box;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

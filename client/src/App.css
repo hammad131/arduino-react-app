@@ -1,0 +1,7 @@
+.app__heading{
+  display: flex;
+  justify-content: space-evenly;
+}
+.app__heading > h1 {
+  color: white;
+}
