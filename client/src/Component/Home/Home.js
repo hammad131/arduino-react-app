@@ -9,8 +9,10 @@ function Home() {
 
     const [admin, setAdmin] = useState('')
     const [password, setPassword] = useState('')
-    const [mass, setMass] = useState(1);
-    const [cValue, setCValue] = useState(1);
+    const [mass1, setMass1] = useState(null);
+    const [mass2, setMass2] = useState(null);
+    const [rawValue1, setRawValue1] = useState(null);
+    const [rawValue2, setRawValue2] = useState(null);
     
     
   
@@ -38,15 +40,28 @@ function Home() {
     }
     const calibrateSubmit = (e) =>{
         e.preventDefault();
-        setMass(massRef.current.value);
-        setCValue(massRef.current.value / Number(settings.data))
+        if(mass1 === null){
+        setMass1(mass1Ref.current.value);
+        setRawValue1(Number(settings.data))
+        }else{
+            setMass2(mass2Ref.current.value)
+            setRawValue2(Number(settings.data))
+            setAdmin('')
+            setPassword('');
+        }
         
     }
+    
     const adminRef = useRef();
     const passwordRef = useRef();
-    const massRef = useRef();
+    const mass1Ref = useRef();
+    const mass2Ref = useRef();
 
+    const slope = (mass2 - mass1) / (rawValue2 - rawValue1)
+    const yintercept = mass2 - (slope * rawValue2)
+    const mass = (slope * Number(settings.data)) + yintercept
 
+    
 
     return (
         <div className='container'>
@@ -61,9 +76,16 @@ function Home() {
                 <span>
                     {settings.data} raw Value
                 </span>
-                <input type='number' placeholder='type mass in Kg' ref={massRef}>
+                {(mass1 === null)?
+                (<input type='number' placeholder='type mass in Kg' ref={mass1Ref}>
 
-                </input>
+                </input>):
+                (
+                    <input type='number' placeholder='type mass in Kg' ref={mass2Ref}>
+
+                    </input> 
+                )}
+                
                 <button onClick={calibrateSubmit}>
                     Calibrate
                 </button>
@@ -100,7 +122,7 @@ function Home() {
             </div>
             <div className='main__load'>
                     <h1>
-                    {(settings.data * (cValue) * 9.8)/ 1000} kN
+                    {(mass *  9.8)/ 1000} kN
                     </h1>
             </div>
             
